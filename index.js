@@ -16,7 +16,9 @@ const courseSchema = new mongoose.Schema({
 
 const Course = mongoose.model('Course', courseSchema);
 
-async function getCourses() {
+// First Assignment
+
+async function getCoursesFirst() {
   return await Course.find({
     author: 'Mosh',
     isPublished: true,
@@ -24,12 +26,27 @@ async function getCourses() {
   })
     .sort({ name: 1 })
     .select({ name: 1, author: 1 });
-  
 }
 
-async function run() {
-  const courses = await getCourses();
+async function runFirst() {
+  const courses = await getCoursesFirst();
   console.log(courses);
 }
 
-run();
+// runFirst();
+
+// Second Assignment
+
+async function getCoursesSecond() {
+  return await Course.find({ tags: { $in: ['frontend', 'backend'] } })
+    .sort({ price: -1 })
+    // .sort('-price')
+    .select({ name: 1, author: 1, price: 1 });
+}
+
+async function runSecond() {
+  const courses = await getCoursesSecond();
+  console.log(courses);
+}
+
+runSecond();
