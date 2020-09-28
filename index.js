@@ -17,13 +17,19 @@ const courseSchema = new mongoose.Schema({
 const Course = mongoose.model('Course', courseSchema);
 
 async function getCourses() {
-  const courses = await Course.find({
+  return await Course.find({
     author: 'Mosh',
     isPublished: true,
+    tags: 'backend',
   })
     .sort({ name: 1 })
     .select({ name: 1, author: 1 });
+  
+}
+
+async function run() {
+  const courses = await getCourses();
   console.log(courses);
 }
 
-getCourses();
+run();
