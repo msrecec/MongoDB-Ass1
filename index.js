@@ -49,4 +49,21 @@ async function runSecond() {
   console.log(courses);
 }
 
-runSecond();
+// runSecond();
+
+// Third Assignment
+
+async function getCoursesThird() {
+  return await Course.find({ isPublished: true })
+    .or([{ price: { $gte: 15 } }, { name: /.*by.*/i }])
+    // .select({ name: 1, author: 1, tags: 1, price: 1 });
+    .sort('-price')
+    .select('name author tags price');
+}
+
+async function runThird() {
+  const courses = await getCoursesThird();
+  console.log(courses);
+}
+
+runThird();
